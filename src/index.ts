@@ -1,2 +1,2 @@
 import { somefn } from "./test";
-somefn();
+somefn(123);

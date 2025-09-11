@@ -1,4 +1,4 @@
-export function somefn() {
+export function somefn(n:number) {
   console.log("Text");
   return "";
 };
