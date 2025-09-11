@@ -1,17 +1,21 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { ProgressPlugin } from 'webpack';
+import { Configuration, ProgressPlugin } from 'webpack';
 
-const mode = "production";
-
-
-module.exports = (env: any) => {
+const buildPaths: BuildPaths = {
+  entry: path.resolve(__dirname, "src", "index.ts"),
+  build: path.resolve(__dirname, 'dist'),
+  html: path.resolve(__dirname, "public", "index.html"),
+  favicon: path.resolve(__dirname, "public", "favicon.ico"),
+};
+const config = (env: BuildEnv): Configuration => {
+  const mode = env.mode || "development";
   return {
-    mode: env.mode || mode,
+    mode: mode,
     entry: path.resolve(__dirname, "src", "index.ts"),
     output: {
-      filename: "[name].[contenthash].js",
       path: path.resolve(__dirname, 'dist'),
+      filename: "[name].[contenthash].js",
       clean: true
     },
     plugins: [
@@ -37,3 +41,4 @@ module.exports = (env: any) => {
     devtool: 'inline-source-map',
   };
 };
+export default config;
