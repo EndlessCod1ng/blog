@@ -1,6 +1,10 @@
 import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { Configuration, ProgressPlugin } from 'webpack';
+import { Configuration } from 'webpack';
+import { BuildEnv, BuildPaths } from './config/build/types/config';
+import { buildPlugins } from './config/build/buildPlugins';
+import { buildLoaders } from './config/build/buildLoaders';
+import { buildResolvers } from './config/build/buildResolvers';
+import { buildWebpackConfig } from './config/build/buildWebpackConfig';
 
 const buildPaths: BuildPaths = {
   entry: path.resolve(__dirname, "src", "index.ts"),
@@ -8,37 +12,11 @@ const buildPaths: BuildPaths = {
   html: path.resolve(__dirname, "public", "index.html"),
   favicon: path.resolve(__dirname, "public", "favicon.ico"),
 };
-const config = (env: BuildEnv): Configuration => {
-  const mode = env.mode || "development";
-  return {
-    mode: mode,
-    entry: path.resolve(__dirname, "src", "index.ts"),
-    output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: "[name].[contenthash].js",
-      clean: true
-    },
-    plugins: [
-      new HtmlWebpackPlugin(
-        {
-          template: path.resolve(__dirname, "public", "index.html"),
-          favicon: path.resolve(__dirname, "public", "favicon.ico")
-        }
-      ), new ProgressPlugin()
-    ],
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-      ],
-    },
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js', '.jsx'],
-    },
-    devtool: 'inline-source-map',
-  };
-};
+
+const config = (env: BuildEnv): Configuration => buildWebpackConfig({
+  mode: env.mode,
+  buildPaths: buildPaths,
+  isDev: env.mode === "development",
+  port: env.port || 3001
+});
 export default config;
