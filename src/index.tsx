@@ -1,14 +1,9 @@
 import { createRoot } from "react-dom/client";
-import { Counter } from "./components/Counter/Counter";
 
-function App() {
-  return (
-    <div>
-      Hello World
-      <Counter />
-    </div>
-  );
-}
+import "./app/css/index.scss";
+import { App } from "./app/App";
+
+
 
 const root = createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(<App className="app" />);

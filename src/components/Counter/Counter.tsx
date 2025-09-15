@@ -1,5 +1,6 @@
 import { useState } from "react";
-import  "./Counter.scss";
+import s from "./Counter.module.scss";
+
 interface CounterProps {
   className?: string;
 }
@@ -9,7 +10,7 @@ export const Counter = ({ className }: CounterProps) => {
     <div className={`${className ? className : ""}`}>
       <div>{count}</div>
       <button
-        className={`btn`}
+        className={s.btn}
         onClick={() => setCount((prev) => prev + 1)}
       >
         +1
