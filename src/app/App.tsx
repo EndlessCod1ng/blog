@@ -3,18 +3,22 @@ import { HomePage } from "../pages/HomePage";
 import { ProfilePage } from "../pages/ProfilePage";
 import { Suspense, useState } from "react";
 
+
 interface AppProps {
   className?: string;
 }
 type Theme = "light" | "dark";
+
 export const App = ({ className }: AppProps) => {
   const [theme, setTheme] = useState<Theme>("light");
+
   return (
     <div className={`app_${theme}_theme ${className ? className : ""}`}>
       <Link to={"/"}>Home</Link>
       <Link to={"/profile"}>Profile</Link>
+
       <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-        ChangeTHeme
+        ChangeTheme
       </button>
 
       <Suspense fallback="loading...">
