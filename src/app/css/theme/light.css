@@ -1,0 +1,6 @@
+.app_light_theme {
+  --bg-color: darkgray;
+
+  --primary-color: blue;
+  --secondary-color: lightblue;
+}
